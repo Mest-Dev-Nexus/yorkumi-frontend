@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Globe, House, LogIn, ShoppingCart } from "lucide-react";
+import { BookCheck, Globe, Headset, House, LogIn, Phone, PhoneCallIcon, ShoppingCart } from "lucide-react";
 
 const NavBar = () => {
   return (
@@ -9,7 +9,7 @@ const NavBar = () => {
         <p className="font-bold text-white">Logo</p>
       </div>
 
-      <span className="flex gap-5 items-center transition-duration-200">
+      <span className="flex gap-5 items-center transition-duration-200 text-1xl">
         <House className="w-5 h-5 text-white" />
         <a href="/" className="block text-white hover:text-amber-300">
           Home
@@ -22,9 +22,11 @@ const NavBar = () => {
         <a href="/browse" className="block text-white hover:text-amber-300">
           Browse More
         </a>
+        <BookCheck className="w-5 h-5 text-white"/>
         <a href="/blog" className="block text-white hover:text-amber-300">
           Blog
         </a>
+        <Headset className="w-5 h-5 text-white"/>
         <a href="/contact" className="block text-white hover:text-amber-300">
           Contact
         </a>
