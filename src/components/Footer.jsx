@@ -1,7 +1,7 @@
 import React from "react";
 import { Facebook, Instagram, Phone, Mail, MapPin } from "lucide-react";
 import { FaTiktok, FaWhatsapp } from "react-icons/fa";
-// import logo from "../assets/images/logovennace.png";
+// import logo from "../assets/images/yorkumi.jpg";
 
 const Footer = () => {
   return (
@@ -19,7 +19,7 @@ const Footer = () => {
               soap, neem & other natural raw ingredients to life so you can be
               nurtured.
             </p>
-            
+
             {/* Social Media Links */}
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-3">Connect With Us</h3>
@@ -70,11 +70,43 @@ const Footer = () => {
               Quick Links
             </h2>
             <ul className="space-y-2">
-              <li><a href="/" className="hover:text-amber-700 transition-colors">Home</a></li>
-              <li><a href="/about" className="hover:text-amber-700 transition-colors">About Us</a></li>
-              <li><a href="/products" className="hover:text-amber-700 transition-colors">Products</a></li>
-              <li><a href="/blog" className="hover:text-amber-700 transition-colors">Blog</a></li>
-              <li><a href="/contact" className="hover:text-amber-700 transition-colors">Contact</a></li>
+              <li>
+                <a href="/" className="hover:text-amber-700 transition-colors">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/about"
+                  className="hover:text-amber-700 transition-colors"
+                >
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/products"
+                  className="hover:text-amber-700 transition-colors"
+                >
+                  Products
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/blog"
+                  className="hover:text-amber-700 transition-colors"
+                >
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/contact"
+                  className="hover:text-amber-700 transition-colors"
+                >
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -107,20 +139,27 @@ const Footer = () => {
             <div className="space-y-4">
               <p className="flex items-center">
                 <Phone className="mr-3 h-5 w-5 text-amber-700" />
-                <a href="tel:+233269392148" className="hover:text-amber-700 transition-colors">
+                <a
+                  href="tel:+233269392148"
+                  className="hover:text-amber-700 transition-colors"
+                >
                   +233 269-392-148
                 </a>
               </p>
               <p className="flex items-center">
                 <Mail className="mr-3 h-5 w-5 text-amber-700" />
-                <a href="mailto:enquiries@yorkumishea.com" className="hover:text-amber-700 transition-colors">
+                <a
+                  href="mailto:enquiries@yorkumishea.com"
+                  className="hover:text-amber-700 transition-colors"
+                >
                   enquiries@yorkumishea.com
                 </a>
               </p>
               <p className="flex items-start">
                 <MapPin className="mr-3 h-5 w-5 text-amber-700 mt-1" />
                 <span>
-                  Sakumono Chapel Square/Spintex Road,<br />
+                  Sakumono Chapel Square/Spintex Road,
+                  <br />
                   Accra – Ghana
                 </span>
               </p>
@@ -129,8 +168,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-6 border-t border-amber-700 text-center">
-        <p>© 2024 – Yorkumi Shea</p>
-          {/* <p className="text-sm">© {new Date().getFullYear()} – Yorkumi Shea. All rights reserved.</p> */}
+          <p>© 2024 – Yorkumi Shea</p>
         </div>
       </div>
     </footer>

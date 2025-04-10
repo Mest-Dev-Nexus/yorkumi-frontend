@@ -8,20 +8,22 @@ import SingleAds from "./pages/SingleAds";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import RootLayout from "./layout/RootLayout";
+import Blog from "./pages/Blog";
 
 function App() {
   return (
     <Router>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route index={true} element={<Landing />} />
           <Route path="/products" element={<Products />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/singleads" element={<SingleAds />} />
+          <Route path="/blog" element={<Blog />} />
         </Route>
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </Router>
   );
 }
