@@ -319,7 +319,7 @@ const Landing = () => {
       </div>
 
       {/* Newsletter Section */}
-      <div className="py-12 md:py-16 bg-white text-amber-800">
+      {/* <div className="py-12 md:py-16 bg-white text-amber-800">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Join Our Community</h2>
           <p className="mb-6 md:mb-8 max-w-xl mx-auto text-sm md:text-base">
@@ -336,7 +336,7 @@ const Landing = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
     </div>
   );
