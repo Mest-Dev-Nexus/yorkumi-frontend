@@ -73,7 +73,8 @@ const Landing = () => {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <div className="bg-[url(assets/images/yorkumi.jpg)] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center px-4 md:px-12 py-10 w-full pt-24 md:pt-16">
+      <div className="bg-[url(assets/images/york.png)] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center px-4 md:px-12 py-10 w-full pt-24 md:pt-16">
+      
         <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-xl p-4 sm:p-6 md:p-10 max-w-3xl w-full text-left text-gray-900">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
             100% Natural Extracts.
