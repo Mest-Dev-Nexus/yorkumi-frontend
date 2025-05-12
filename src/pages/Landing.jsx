@@ -8,6 +8,15 @@ const Landing = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentBestSeller, setCurrentBestSeller] = useState(0);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  
+  // New state for testimonial form
+  const [newTestimonial, setNewTestimonial] = useState({
+    name: "",
+    quote: "",
+    rating: 5
+  });
+  const [testimonialSubmitted, setTestimonialSubmitted] = useState(false);
+  const [showTestimonialForm, setShowTestimonialForm] = useState(false);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -70,11 +79,49 @@ const Landing = () => {
     setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
   };
 
+  // Handle testimonial form input changes
+  const handleTestimonialChange = (e) => {
+    const { name, value } = e.target;
+    setNewTestimonial(prev => ({
+      ...prev,
+      [name]: name === 'rating' ? parseInt(value) : value
+    }));
+  };
+
+  // Handle testimonial form submission
+  const handleTestimonialSubmit = (e) => {
+    e.preventDefault();
+    // In a real app, you would send this data to your backend
+    console.log("Submitted testimonial:", newTestimonial);
+    
+    // Show success message
+    setTestimonialSubmitted(true);
+    
+    // Reset form after 3 seconds and hide it
+    setTimeout(() => {
+      setTestimonialSubmitted(false);
+      setShowTestimonialForm(false);
+      setNewTestimonial({
+        name: "",
+        quote: "",
+        rating: 5
+      });
+    }, 3000);
+  };
+
+  // Toggle testimonial form visibility
+  const toggleTestimonialForm = () => {
+    setShowTestimonialForm(prev => !prev);
+    // Reset submission status when opening form
+    if (!showTestimonialForm) {
+      setTestimonialSubmitted(false);
+    }
+  };
+
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <div className="bg-[url('/image/yorkumi.jpg')] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center px-4 md:px-12 py-10 w-full pt-24 md:pt-16">
-
+      <div className="bg-[url(assets/images/yorkumi.jpg)] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center px-4 md:px-12 py-10 w-full pt-24 md:pt-16">
       
         <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-xl p-4 sm:p-6 md:p-10 max-w-3xl w-full text-left text-gray-900">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
@@ -265,13 +312,13 @@ const Landing = () => {
         </div>
       </div>
 
-      {/* Testimonials Section with Carousel */}
+      {/* Enhanced Testimonials Section with User Submission */}
       <div className="py-12 md:py-16 bg-amber-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-amber-800 mb-8 md:mb-12">What Our Customers Say</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-amber-800 mb-6 md:mb-8">What Our Customers Say</h2>
           
           {/* Testimonials Carousel */}
-          <div className="relative mx-auto max-w-md sm:max-w-lg md:max-w-xl">
+          <div className="relative mx-auto max-w-md sm:max-w-lg md:max-w-xl mb-8 md:mb-12">
             <div className="bg-white p-6 md:p-8 rounded-lg shadow-md">
               <div className="flex mb-3 md:mb-4">
                 {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
@@ -317,29 +364,94 @@ const Landing = () => {
               ))}
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Newsletter Section */}
-      {/* <div className="py-12 md:py-16 bg-white text-amber-800">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Join Our Community</h2>
-          <p className="mb-6 md:mb-8 max-w-xl mx-auto text-sm md:text-base">
-            Subscribe to our newsletter for exclusive offers, skincare tips, and updates on new products.
-          </p>
-          <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-3 md:gap-4">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="px-4 py-2 md:py-3 rounded-lg flex-grow text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm md:text-base border border-amber-200"
-            />
-            <button className="px-6 py-2 md:py-3 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-500 transition-colors whitespace-nowrap text-sm md:text-base">
-              Subscribe
+          
+          {/* Add Testimonial Button */}
+          <div className="text-center mb-6 md:mb-8">
+            <button 
+              onClick={toggleTestimonialForm}
+              className="inline-flex items-center px-5 py-2 md:px-6 md:py-3 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 transition-colors text-sm md:text-base"
+            >
+              {showTestimonialForm ? "Cancel" : "Share Your Experience"}
             </button>
           </div>
+          
+          {/* Testimonial Submission Form - Conditionally Rendered */}
+          {showTestimonialForm && (
+            <div className="max-w-md sm:max-w-lg md:max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md transition-all">
+              {testimonialSubmitted ? (
+                <div className="text-center py-6">
+                  <div className="inline-flex items-center justify-center bg-green-100 p-3 rounded-full mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2">Thank You!</h3>
+                  <p className="text-gray-600">Your testimonial has been submitted successfully.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleTestimonialSubmit} className="space-y-4">
+                  <h3 className="text-lg md:text-xl font-semibold text-amber-800 mb-2">Share Your Experience</h3>
+                  
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={newTestimonial.name}
+                      onChange={handleTestimonialChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="quote" className="block text-sm font-medium text-gray-700 mb-1">Your Testimonial</label>
+                    <textarea
+                      id="quote"
+                      name="quote"
+                      rows="4"
+                      value={newTestimonial.quote}
+                      onChange={handleTestimonialChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      required
+                    ></textarea>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="rating" className="block text-sm font-medium text-gray-700 mb-1">Your Rating</label>
+                    <div className="flex items-center gap-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setNewTestimonial(prev => ({ ...prev, rating: star }))}
+                          className="focus:outline-none"
+                        >
+                          <Star 
+                            className={`h-6 w-6 ${star <= newTestimonial.rating 
+                              ? 'fill-amber-500 text-amber-500' 
+                              : 'text-gray-300'}`} 
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-end pt-2">
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-amber-600 text-white font-medium rounded-md hover:bg-amber-700 transition-colors text-sm md:text-base"
+                    >
+                      Submit Testimonial
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          )}
         </div>
-      </div> */}
-
+      </div>
     </div>
   );
 };
