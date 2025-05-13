@@ -1,31 +1,11 @@
-// import React from 'react'
-// import Navbar from "../components/Navbar";
-// import Footer from "../components/Footer";
-// import { Outlet, ScrollRestoration } from "react-router-dom";
-
-// const RootLayout = () => {
-//   return (
-//     <div>
-//       <Navbar/>
-//       <Outlet/>
-//       <Footer/>
-//       <ScrollRestoration />
-//     </div>
-//   )
-// }
-
-// export default RootLayout
-
-
-
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Outlet, useLocation } from "react-router-dom";
 
 const RootLayout = () => {
   const location = useLocation();
-  
+
   useEffect(() => {
     // Scroll to top when location changes
     window.scrollTo(0, 0);
@@ -37,11 +17,11 @@ const RootLayout = () => {
 
   return (
     <div>
-      <Navbar/>
-      <Outlet/>
-      <Footer/>
+      <Navbar />
+      <Outlet />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;
