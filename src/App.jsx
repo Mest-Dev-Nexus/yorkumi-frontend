@@ -9,6 +9,11 @@ import RootLayout from "./layout/RootLayout";
 import Blog from "./pages/Blog";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
+import DashboardLayout from "./layout/DashboardLayout";
+import Overview from "./pages/vendorDashboard/Overview";
+import CreateProduct from "./pages/vendorDashboard/CreateProduct";
+import VendorAds from "./pages/vendorDashboard/VendorAds";
+
 
 function App() {
   return (
@@ -23,6 +28,20 @@ function App() {
           <Route path="/singleads" element={<SingleAds />} />
           <Route path="/blog" element={<Blog />} />
         </Route>
+
+
+        {/* Add your dashboard routes here */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index={true} element={<Overview />} />
+          <Route path="create-product" element={<CreateProduct/>} />
+          <Route path="ads" element={<VendorAds />} />
+          {/* <Route path="bookings" element ={<ManageBookings/>}/>
+          <Route path="update/:id" element ={<UpdateTour/>}/>
+          <Route path="Operator-profile" element={<OperatorProfile />} />
+          <Route path="message" element={<Message />} />  */}
+          
+        </Route>
+
       </Routes>
     </Router>
   );
