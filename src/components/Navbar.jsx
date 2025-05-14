@@ -152,6 +152,8 @@ const Navbar = () => {
                   </Link>
                 </div>
               )}
+
+
             </div>
             
             <Link
@@ -171,7 +173,7 @@ const Navbar = () => {
               Blog
             </Link>
             <Link
-              to="/footer"
+              to="/Contact"
               className={`hover:text-amber-700 transition-colors ${
                 isScrolled ? "text-gray-800" : "text-black"
               }`}

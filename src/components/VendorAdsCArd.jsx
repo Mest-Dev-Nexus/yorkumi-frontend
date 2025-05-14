@@ -23,11 +23,11 @@ const VendorAdsCArd = () => {
       <div className="flex items-center gap-2 text-sm text-gray-600">
         <span className="text-green-600 font-semibold">4.8</span>
         <div className="flex gap-1">
-          <span className="text-green-500 text-sm">●</span>
-          <span className="text-green-500 text-sm">●</span>
-          <span className="text-green-500 text-sm">●</span>
-          <span className="text-green-500 text-sm">●</span>
-          <span className="text-green-500 text-sm">●</span>
+          <span className="text-amber-500 text-sm">●</span>
+          <span className="text-amber-500 text-sm">●</span>
+          <span className="text-amber-500 text-sm">●</span>
+          <span className="text-amber-500 text-sm">●</span>
+          <span className="text-amber-500 text-sm">●</span>
         </div>
         <span>(200)</span>
       </div>

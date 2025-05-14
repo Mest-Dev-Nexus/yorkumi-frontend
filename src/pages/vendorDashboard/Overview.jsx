@@ -12,7 +12,7 @@ const Overview = () => {
         <div className="flex space-x-2">
           <button className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-50">Export</button>
           <Link to={'/dashboard/create-product'}>
-          <button className="px-4 py-2 bg-teal-600 text-white rounded-md text-sm font-medium hover:bg-teal-700">New Product</button>
+          <button className="px-4 py-2 bg-amber-600 text-white rounded-md text-sm font-medium hover:bg-amber-700">New Product</button>
           </Link>
          
         </div>
