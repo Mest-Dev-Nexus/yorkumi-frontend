@@ -16,12 +16,12 @@ export default{
             icon: FileIcon,
         },
         {
-            name: "Manage Bookings",
-            path: "/dashboard/bookings",
+            name: "Manage Orders",
+            path: "/dashboard/orders",
             icon: BookIcon,
         },
         {
-            name: "Update Tour",
+            name: "Update Product",
             path: "/dashboard/update/:id",
             icon: Pencil,
         },

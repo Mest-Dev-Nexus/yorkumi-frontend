@@ -60,7 +60,7 @@ const Sidebar = () => {
         <div className="flex flex-col h-full py-6 px-4">
           {/* Logo/Brand and Close Button */}
           <div className="flex items-center justify-between mb-8 px-2 relative">
-            <span className="text-white text-xl font-bold">WanderNest</span>
+            <span className="text-white text-xl font-bold">Yorkumi Shea</span>
             {isMobile && (
               <button 
                 onClick={toggleSidebar}
