@@ -38,7 +38,7 @@ const Sidebar = () => {
       {/* Hamburger Menu Button - Only visible when sidebar is closed */}
       <button
         onClick={toggleSidebar}
-        className={`lg:hidden fixed top-4 left-4 z-50 bg-teal-500 text-white p-2 rounded-md transition-all duration-300 ease-in-out ${
+        className={`lg:hidden fixed top-4 left-4 z-50 bg-amber-700 text-white p-2 rounded-md transition-all duration-300 ease-in-out ${
           isOpen ? "hidden" : "block"
         }`}
         aria-label="Toggle menu"
@@ -53,7 +53,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-screen bg-teal-600 z-40 transition-all duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 h-screen bg-[#6B4226] z-40 transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0 w-64" : "-translate-x-full w-64"
         } lg:translate-x-0 lg:w-64`}
       >
@@ -64,7 +64,7 @@ const Sidebar = () => {
             {isMobile && (
               <button 
                 onClick={toggleSidebar}
-                className="absolute right-0 top-0 text-white hover:bg-teal-700 p-2 rounded-full transition-all duration-200"
+                className="absolute right-0 top-0 text-white hover:bg-amber-600 p-2 rounded-full"
                 aria-label="Close sidebar"
               >
                 <X size={24} strokeWidth={2.5} />
@@ -79,8 +79,8 @@ const Sidebar = () => {
                 key={index}
                 to={link.path}
                 className={({ isActive }) =>
-                  `text-white hover:bg-teal-700 px-4 py-3 rounded-md flex items-center gap-x-3 transition-colors ${
-                    isActive ? "bg-teal-700 font-medium" : ""
+                  `text-white hover:bg-amber-600 px-4 py-3 rounded-md flex items-center gap-x-3 transition-colors ${
+                    isActive ? "bg-amber-600 font-medium" : ""
                   }`
                 }
                 onClick={isMobile ? toggleSidebar : undefined}
@@ -92,7 +92,7 @@ const Sidebar = () => {
           </div>
 
           {/* Logout Button */}
-          <button className="mt-auto bg-[#009689] hover:bg-[#00786F] text-white px-4 py-3 rounded-md transition-colors flex items-center justify-center">
+          <button className="mt-auto bg-[#A15B36] hover:bg-[#8D4724] text-white px-4 py-3 rounded-md transition-colors flex items-center justify-center">
             Logout
           </button>
         </div>

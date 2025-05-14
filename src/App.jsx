@@ -9,10 +9,12 @@ import RootLayout from "./layout/RootLayout";
 import Blog from "./pages/Blog";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
+import Contact from "./pages/Contact";
 import DashboardLayout from "./layout/DashboardLayout";
 import Overview from "./pages/vendorDashboard/Overview";
 import CreateProduct from "./pages/vendorDashboard/CreateProduct";
 import VendorAds from "./pages/vendorDashboard/VendorAds";
+
 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/singleads" element={<SingleAds />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
         </Route>
 
 

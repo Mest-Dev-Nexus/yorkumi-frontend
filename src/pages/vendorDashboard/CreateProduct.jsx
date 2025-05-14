@@ -4,7 +4,7 @@ const CreateProduct = () => {
   return (
     <div className="w-full">
   <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-    <div className="bg-[#009689] p-6">
+    <div className="bg-amber-600 p-6">
       <h1 className="text-2xl font-bold text-white">
         Create New Product
       </h1>
