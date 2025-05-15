@@ -13,6 +13,8 @@ import DashboardLayout from "./layout/DashboardLayout";
 import Overview from "./pages/vendorDashboard/Overview";
 import CreateProduct from "./pages/vendorDashboard/CreateProduct";
 import VendorAds from "./pages/vendorDashboard/VendorAds";
+import ManageOrder from "./pages/vendorDashboard/ManageOrder";
+import UpdateProduct from "./pages/vendorDashboard/UpdateProduct";
 
 
 function App() {
@@ -35,9 +37,9 @@ function App() {
           <Route index={true} element={<Overview />} />
           <Route path="create-product" element={<CreateProduct/>} />
           <Route path="ads" element={<VendorAds />} />
-          {/* <Route path="bookings" element ={<ManageBookings/>}/>
-          <Route path="update/:id" element ={<UpdateTour/>}/>
-          <Route path="Operator-profile" element={<OperatorProfile />} />
+          <Route path="orders" element ={<ManageOrder/>}/>
+          <Route path="update/:id" element ={<UpdateProduct/>}/>
+          {/* <Route path="Operator-profile" element={<OperatorProfile />} />
           <Route path="message" element={<Message />} />  */}
           
         </Route>
