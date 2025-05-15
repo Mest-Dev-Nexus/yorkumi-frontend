@@ -1,44 +1,39 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import products from '../data/products' // your mock or real product data
-import { FaStar } from 'react-icons/fa'
+import SingleImage from '../assets/images/yorkumi.jpg'
+import { ShoppingCart, Star } from 'lucide-react'
 
 const SingleAds = () => {
-  const { id } = useParams()
-  const product = products.find(p => p.id === id)
-
-  if (!product) {
-    return <div className="p-8 text-center text-red-500">Product not found.</div>
-  }
-
   return (
-    <div className="container mx-auto p-6">
+     // Added top margin (mt-16) to push content down below navbar
+    <div className="container mx-auto p-6 mt-0 pt-30">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Image Section */}
         <div className="flex justify-center items-center">
           <img
-            src={product.image}
-            alt={product.name}
+            src={SingleImage}
+            alt="Product"
             className="w-full h-auto max-w-md object-contain border border-gray-100 rounded-lg shadow-sm"
           />
         </div>
-
+        
         {/* Product Info Section */}
         <div>
-          <h2 className="text-3xl font-bold text-amber-800 mb-2">{product.name}</h2>
+          <h2 className="text-3xl font-bold text-amber-800 mb-2">Organic Honey</h2>
           <div className="flex items-center text-amber-500 mb-3">
-            {Array.from({ length: product.rating }, (_, i) => (
-              <FaStar key={i} />
-            ))}
-            <span className="ml-2 text-sm text-gray-600">({product.rating}.0)</span>
+            <Star fill="currentColor" size={20} />
+            <Star fill="currentColor" size={20} />
+            <Star fill="currentColor" size={20} />
+            <Star fill="currentColor" size={20} />
+            <Star fill="currentColor" size={20} />
+            <span className="ml-2 text-sm text-gray-600">(5.0)</span>
           </div>
-          <p className="text-gray-700 mb-4">{product.description}</p>
-
+          <p className="text-gray-700 mb-4">Premium organic honey sourced from wildflower meadows. Pure, raw, and unfiltered with a rich golden color and delicate floral taste.</p>
           <div className="text-2xl font-semibold text-amber-700 mb-6">
-            ${product.price}
+            $12.99
           </div>
-
-          <button className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg transition">
+          <button className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg transition flex items-center">
+            <ShoppingCart size={18} className="mr-2" />
             Add to Cart
           </button>
         </div>

@@ -1,13 +1,13 @@
-import { apiCLinet } from "./config";
+import { apiClient } from "./config";
 
 export const apiSignup = async (payload) => {
-  return apiCLinet.post("/users/register", payload);
+  return apiClient.post("/user/register", payload);
 };
 
 export const apiLogin = async (payload) => {
-  return apiCLinet.post("/users/login", payload);
+  return apiClient.post("/users/login", payload);
 };
 
 export const apiVerifyEmail = async (payload) => {
-  return apiCLinet.post("/users/verify-email", payload);
+  return apiClient.post("/users/verify-email", payload);
 };

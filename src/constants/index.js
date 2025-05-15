@@ -20,11 +20,11 @@ export default{
             path: "/dashboard/orders",
             icon: BookIcon,
         },
-        {
-            name: "Update Product",
-            path: "/dashboard/update/:id",
-            icon: Pencil,
-        },
+        // {
+        //     name: "Update Product",
+        //     path: "/dashboard/update/:id",
+        //     icon: Pencil,
+        // },
         {
             name: "Message",
             path: "/dashboard/message",

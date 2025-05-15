@@ -1,9 +1,13 @@
 import React from 'react'
 import productImage from '../assets/images/lotion.jpg'
+import { Link } from 'react-router';
 
 const ProductCard = () => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+
+    
+    <Link to={`/ads/:id`}>
+      <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative pb-[75%]"> {/* Creates a consistent aspect ratio container */}
         <span className="absolute top-2 right-2 bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded z-10">
           Featured
@@ -38,6 +42,7 @@ const ProductCard = () => {
         </div>
       </div>
     </div>
+    </Link>
   )
 }
 
