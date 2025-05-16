@@ -16,6 +16,7 @@ import CreateProduct from "./pages/vendorDashboard/CreateProduct";
 import VendorAds from "./pages/vendorDashboard/VendorAds";
 import ManageOrder from "./pages/vendorDashboard/ManageOrder";
 import UpdateProduct from "./pages/vendorDashboard/UpdateProduct";
+import Checkout from './pages/Checkout';
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/ads/:id" element={<SingleAds />} />
           <Route path="/about" element={<AboutUs />} />
-          {/* <Route path="/singleads" element={<SingleAds />} /> */}
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
