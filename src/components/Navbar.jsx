@@ -270,13 +270,7 @@ const Navbar = () => {
                         <span className="font-semibold text-lg text-amber-800">${subtotal.toFixed(2)}</span>
                       </div>
                       <div className="flex gap-2">
-                        <Link
-                          to="/cart"
-                          className="flex-1 px-4 py-2 bg-white border border-amber-700 text-amber-700 text-center rounded hover:bg-amber-50 transition-colors"
-                          onClick={() => setIsCartOpen(false)}
-                        >
-                          View Cart
-                        </Link>
+                 
                         <Link
                           to="/checkout"
                           className="flex-1 px-4 py-2 bg-amber-700 text-white text-center rounded hover:bg-amber-800 transition-colors"
