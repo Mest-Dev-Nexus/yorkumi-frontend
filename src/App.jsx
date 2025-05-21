@@ -16,7 +16,7 @@ import CreateProduct from "./pages/vendorDashboard/CreateProduct";
 import VendorAds from "./pages/vendorDashboard/VendorAds";
 import ManageOrder from "./pages/vendorDashboard/ManageOrder";
 import UpdateProduct from "./pages/vendorDashboard/UpdateProduct";
-import Checkout from './pages/Checkout';
+import Checkout from "./pages/Checkout";
 
 
 function App() {
