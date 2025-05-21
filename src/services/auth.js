@@ -6,5 +6,5 @@ export const apiSignup = async (payload) => {
       'Content-Type': 'multipart/form-data'
     }
   };
-  return apiClient.post("/user/register", payload, config);
+  return apiClient.post("user/register", payload, config);
 };

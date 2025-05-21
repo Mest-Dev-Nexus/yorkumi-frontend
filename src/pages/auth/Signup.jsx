@@ -53,6 +53,15 @@ export default function Signup() {
     const formData = new FormData(event.target);
     
     try {
+      // Add address fields as nested object
+      const addressFields = ['address1', 'city', 'country', 'region', 'postalCode'];
+      addressFields.forEach(field => {
+        const value = event.target[`address[${field}]`]?.value;
+        if (value) {
+          formData.append(`address[${field}]`, value);
+        }
+      });
+      
       const response = await apiSignup(formData);
       console.log('Registration successful:', response.data);
       setSuccessMessage('Registration successful! Redirecting to login...');
@@ -106,6 +115,19 @@ export default function Signup() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Enter your full name"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
+                required
+                disabled={loading}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Username
               </label>
               <input
@@ -117,6 +139,9 @@ export default function Signup() {
                 disabled={loading}
               />
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
@@ -125,6 +150,19 @@ export default function Signup() {
                 type="email"
                 name="email"
                 placeholder="your@email.com"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
+                required
+                disabled={loading}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                WhatsApp Number
+              </label>
+              <input
+                type="tel"
+                name="whatsappnumber"
+                placeholder="e.g. +233249872226"
                 className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
                 required
                 disabled={loading}
@@ -151,12 +189,42 @@ export default function Signup() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                WhatsApp Number
+                Role
+              </label>
+              <select
+                name="role"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                required
+                disabled={loading}
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Address Line 1
               </label>
               <input
                 type="text"
-                name="whatsappNumber"
-                placeholder="e.g. 0XXXXXXXXX"
+                name="address[address1]"
+                placeholder="e.g. Amasaman"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
+                required
+                disabled={loading}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                City
+              </label>
+              <input
+                type="text"
+                name="address[city]"
+                placeholder="e.g. Accra"
                 className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
                 required
                 disabled={loading}
@@ -167,31 +235,58 @@ export default function Signup() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Profile Image
+                Region
               </label>
               <input
-                type="file"
-                name="image"
-                accept="image/*"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                type="text"
+                name="address[region]"
+                placeholder="e.g. Accra"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
                 required
                 disabled={loading}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Role
+                Country
               </label>
-              <select
-                name="role"
+              <input
+                type="text"
+                name="address[country]"
+                placeholder="e.g. Ghana"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
+                required
+                disabled={loading}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Postal Code
+              </label>
+              <input
+                type="text"
+                name="address[postalCode]"
+                placeholder="e.g. 00233"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
+                required
+                disabled={loading}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Profile Image
+              </label>
+              <input
+                type="file"
+                name="profileImage"
+                accept="image/*"
                 className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                 required
                 disabled={loading}
-              >
-                <option value="">Select your role</option>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
+              />
             </div>
           </div>
 
