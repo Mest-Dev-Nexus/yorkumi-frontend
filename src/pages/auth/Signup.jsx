@@ -1,187 +1,220 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "../../assets/images/logo.jpg";
+import { useNavigate } from "react-router";
+import { apiSignup } from "../../services/auth";
 
-export default function SignupForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    role: "user",
-    whatsappNumber: "",
-    image: null,
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+export default function Signup() {
+  const navigate = useNavigate();
+  const [error, setError] = React.useState(null);
+  const [passwordError, setPasswordError] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const [successMessage, setSuccessMessage] = React.useState(null);
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "image") {
-      setFormData({ ...formData, image: files[0] });
-    } else {
-      setFormData({ ...formData, [name]: value });
+  const validatePassword = (password) => {
+    const errors = [];
+    
+    // Check length
+    if (password.length < 8) {
+      errors.push("Password must be at least 8 characters long");
     }
+    
+    // Check uppercase
+    if (!/[A-Z]/.test(password)) {
+      errors.push("Password must contain at least one uppercase letter");
+    }
+    
+    // Check lowercase
+    if (!/[a-z]/.test(password)) {
+      errors.push("Password must contain at least one lowercase letter");
+    }
+    
+    // Check number
+    if (!/[0-9]/.test(password)) {
+      errors.push("Password must contain at least one number");
+    }
+    
+    return errors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
-    // Password validation
-    const password = formData.password;
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters long.");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const password = event.target.password.value;
+    const errors = validatePassword(password);
+    
+    if (errors.length > 0) {
+      setPasswordError(errors.join("\n"));
       return;
     }
-    if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password)) {
-      setError("Password must contain at least one uppercase letter, one lowercase letter, and one number.");
-      return;
+
+    setLoading(true);
+    setError(null);
+    setSuccessMessage(null);
+
+    const formData = new FormData(event.target);
+    
+    try {
+      const response = await apiSignup(formData);
+      console.log('Registration successful:', response.data);
+      setSuccessMessage('Registration successful! Redirecting to login...');
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+    } catch (error) {
+      console.error('Registration failed:', error.response?.data || error.message);
+      setError(error.response?.data?.message || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    // WhatsApp number validation (10-15 digits, digits only)
-    const phone = formData.whatsappNumber.replace(/\D/g, "");
-    if (phone.length < 10 || phone.length > 15) {
-      setError("WhatsApp number must contain 10-15 digits only (no + or spaces).");
-      return;
-    }
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match!");
-      return;
-    }
-    setSuccess("Form is valid! (API integration is currently disabled.)");
-    setFormData({ name: "", username: "", email: "", password: "", confirmPassword: "", role: "user", whatsappNumber: "", image: null });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-2xl mx-auto flex flex-col md:flex-row bg-white rounded-2xl shadow-2xl overflow-hidden">
-        {/* Left: Logo and welcome */}
-        <div className="hidden md:flex flex-col items-center justify-center bg-amber-50 p-8 w-1/2">
-          <img src={logo} alt="Yorkumi Logo" className="w-28 h-28 mb-4 rounded-full shadow" />
-          <h2 className="text-2xl font-bold text-amber-700 mb-2">Welcome to Yorkumi!</h2>
-          <p className="text-gray-600 text-center">Join our community and enjoy the best natural products.</p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 to-amber-100 px-4 py-8">
+      <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-sm border border-amber-100 rounded-2xl shadow-xl p-8 md:p-12 transform hover:scale-[1.01] transition-transform duration-300">
+        <div className="text-center mb-8">
+          <img 
+            src={logo} 
+            alt="Yorkumi Logo" 
+            className="w-24 h-24 mx-auto mb-4 rounded-full shadow-xl"
+          />
+          <h1 className="text-4xl font-bold text-amber-800 mb-2">
+            Welcome to Yorkumi
+          </h1>
+          <p className="text-gray-600 text-lg px-4">
+            Join our community of creative minds and start your journey today
+          </p>
         </div>
-        {/* Right: Form */}
-        <div className="w-full md:w-1/2 p-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-amber-700 mb-6">
-            Create Your Account
-          </h2>
-          {error && <div className="mb-4 text-red-600 text-center bg-red-100 rounded p-2">{error}</div>}
-          {success && <div className="mb-4 text-green-600 text-center bg-green-100 rounded p-2">{success}</div>}
-          <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
+        
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
+            <span className="block sm:inline">{error}</span>
+          </div>
+        )}
+
+        {passwordError && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
+            <span className="block sm:inline">{passwordError}</span>
+          </div>
+        )}
+
+        {successMessage && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6" role="alert">
+            <span className="block sm:inline">{successMessage}</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Username</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Username
+              </label>
               <input
                 type="text"
                 name="username"
                 placeholder="Choose a username"
-                value={formData.username}
-                onChange={handleChange}
-                className="mt-1 w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-amber-50"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
                 required
+                disabled={loading}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Full Name</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Ama Kusi"
-                value={formData.name}
-                onChange={handleChange}
-                className="mt-1 w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-amber-50"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Email Address</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address
+              </label>
               <input
                 type="email"
                 name="email"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                className="mt-1 w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-amber-50"
+                placeholder="your@email.com"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
                 required
+                disabled={loading}
               />
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
               <input
                 type="password"
                 name="password"
-                placeholder="••••••••"
-                value={formData.password}
-                onChange={handleChange}
-                className="mt-1 w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-amber-50"
+                placeholder="Choose a strong password"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
                 required
+                disabled={loading}
               />
-              <p className="text-xs text-gray-500 mt-1">
-                Password must be at least 8 characters, include uppercase, lowercase, and a number. Avoid special characters.
+              <p className="mt-1 text-sm text-gray-500">
+                Password must be at least 8 characters long and include uppercase letters, lowercase letters, and numbers
               </p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="••••••••"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="mt-1 w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-amber-50"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Role</label>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                className="mt-1 w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-amber-50"
-                required
-              >
-                <option value="user">User</option>
-                <option value="vendor">Vendor</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">WhatsApp Number</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                WhatsApp Number
+              </label>
               <input
                 type="text"
                 name="whatsappNumber"
-                placeholder="e.g. 233XXXXXXXXX"
-                value={formData.whatsappNumber}
-                onChange={handleChange}
-                className="mt-1 w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-amber-50"
+                placeholder="e.g. 0XXXXXXXXX"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
                 required
+                disabled={loading}
               />
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Profile Image</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Profile Image
+              </label>
               <input
                 type="file"
                 name="image"
                 accept="image/*"
-                onChange={handleChange}
-                className="mt-1 w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-amber-50"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                required
+                disabled={loading}
               />
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Role
+              </label>
+              <select
+                name="role"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                required
+                disabled={loading}
+              >
+                <option value="">Select your role</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="mt-8">
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg transition-colors mt-2"
               disabled={loading}
+              className="w-full bg-amber-600 text-white py-3 px-6 rounded-lg hover:bg-amber-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             >
-              {loading ? "Signing Up..." : "Sign Up"}
+              {loading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Registering...
+                </>
+              ) : (
+                'Register Account'
+              )}
             </button>
-          </form>
-          <p className="mt-6 text-center text-sm text-gray-600">
-            Already have an account?{" "}
-            <a href="/login" className="text-amber-700 hover:underline font-medium">
-              Login here
-            </a>
-          </p>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );
