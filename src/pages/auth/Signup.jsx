@@ -36,13 +36,29 @@ export default function Signup() {
     return errors;
   };
 
+  const validateUsername = (username) => {
+    if (!/^[a-zA-Z0-9]+$/.test(username)) {
+      return "Username must only contain letters and numbers (no spaces or special characters)";
+    }
+    return null;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const password = event.target.password.value;
-    const errors = validatePassword(password);
+    const username = event.target.username.value;
     
-    if (errors.length > 0) {
-      setPasswordError(errors.join("\n"));
+    // Validate password
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      setPasswordError(passwordErrors.join("\n"));
+      return;
+    }
+    
+    // Validate username
+    const usernameError = validateUsername(username);
+    if (usernameError) {
+      setError(usernameError);
       return;
     }
 
@@ -50,19 +66,25 @@ export default function Signup() {
     setError(null);
     setSuccessMessage(null);
 
-    const formData = new FormData(event.target);
+    // Create the request body object
+    const requestBody = {
+      email: event.target.email.value,
+      username: event.target.username.value,
+      password: password,
+      whatsappnumber: event.target.whatsappnumber.value,
+      role: event.target.role.value,
+      fullName: event.target.fullName.value,
+      address: {
+        address1: event.target['address[address1]'].value,
+        city: event.target['address[city]'].value,
+        country: event.target['address[country]'].value,
+        region: event.target['address[region]'].value,
+        postalCode: event.target['address[postalCode]'].value
+      }
+    };
     
     try {
-      // Add address fields as nested object
-      const addressFields = ['address1', 'city', 'country', 'region', 'postalCode'];
-      addressFields.forEach(field => {
-        const value = event.target[`address[${field}]`]?.value;
-        if (value) {
-          formData.append(`address[${field}]`, value);
-        }
-      });
-      
-      const response = await apiSignup(formData);
+      const response = await apiSignup(requestBody);
       console.log('Registration successful:', response.data);
       setSuccessMessage('Registration successful! Redirecting to login...');
       setTimeout(() => {
@@ -133,8 +155,10 @@ export default function Signup() {
               <input
                 type="text"
                 name="username"
-                placeholder="Choose a username"
+                placeholder="e.g., johndoe123"
                 className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all placeholder-gray-400"
+                pattern="[A-Za-z0-9]+"
+                title="Only letters and numbers are allowed (no spaces or special characters)"
                 required
                 disabled={loading}
               />
